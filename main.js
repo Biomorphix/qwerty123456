@@ -34,7 +34,7 @@ function compareIP(givenIP, IPList) {
   };
 
   var firstbits = function(subnet) {
-    return Number(Math.pow(2, subnet-1) << (32-subnet));
+    return (Number(Math.pow(2, subnet)-1) << (32-subnet));
   };
 
   var given = ip2int(givenIP);
@@ -43,15 +43,14 @@ function compareIP(givenIP, IPList) {
     var s = IPList[i].split('/');
     var ip_addr = ip2int(s[0]);
     var subnet = firstbits(Number(s[1]));
-    if((given & subnet) === ip_addr)
-      return true;
+    if((given & subnet) === ip_addr) return true;
   }
   return false;
 }
 
-function checkNameServers(nameServer, nameServerList) {
+function checkNameServers(givenNameServers, nameServerList) {
   for(var i=0; i < nameServerList.length; i++) {
-    if(nameServerList[i] in nameServer) {
+    if(nameServerList[i] in givenNameServers) {
       return true;
     }
   }
@@ -59,17 +58,17 @@ function checkNameServers(nameServer, nameServerList) {
 }
 
 var LogicClass = function(val) {
-  var domain = url.parse(val).hostname;
-  var fullUrl = val;
-  var requestOptions = {
+  this.domain = url.parse(val).hostname;
+  this.fullUrl = val;
+  this.requestOptions = {
     https: {
-      hostname: fullUrl,
+      hostname: this.fullUrl,
       port: 443,
       path: '/',
       method: 'GET'
     },
     http: {
-      hostname: fullUrl,
+      hostname: this.fullUrl,
       port: 80,
       path: '/',
       method: 'GET'
