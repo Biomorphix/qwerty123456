@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Jino.Assistant</title>
+  <script>
+
+    var nw = require('nw.gui');
+    var win = nw.Window.get();
+    var $ = require('jquery');
+    var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+    $.support.cors = true;
+    $.ajaxSettings.xhr = function() {
+        return new XMLHttpRequest();
+    };
+    win.isMaximized = false;
+  </script>
+  <link rel='stylesheet' href='static/reset.css'>
+  <link rel='stylesheet' href='static/style.css'>
+  <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="static/windowcontrol.js"></script>
+</head>
+<body>
+  <header class="top-titlebar">
+    <h1>Helper</h1>
+    <ul>
+      <li><a href="#" title="Minimize" id="windowControlMinimize"></a>
+      <li><a href="#" title="Maximize" id="windowControlMaximize"></a>
+      <li><a href="#" title="Close"  id="windowControlClose"></a>
+    </ul>
+  </header>
+  <main id="main">
+    <div id="searchBox">
+      <form id="searchBoxForm" action="#">
+        <span>Do this domain</span><input type="text" id="searchThis">
+        <button>Submit</button>
+      </form>
+    </div>
+    <div id="problemSearch">
+      
+    </div>
+  </main>
+
+  <script>// SEARCH BOX CONTROL
+  $('#searchBoxForm>button').click(function(){
+    var domain = $('#searchThis').val();
+    var res = runLogic(domain);
+    var html = '';
+    for(var i = 0; i<res.length; i++) {
+      html += '<ul><li>' + res[i] + '</li></ul>';
+    }
+    $('main').append(html);
+  });
+  </script>
+</body>
+</html>

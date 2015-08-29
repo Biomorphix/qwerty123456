@@ -1,0 +1,28 @@
+<html>
+<body>
+<h1> loading.. </h1>
+<script>
+var gui = require('nw.gui');
+
+var currentWindow = gui.Window.get(); // Get reference to loading.html
+
+var exec = require('child_process').execFile;
+exec('backend/run.py', {cwd:'.'}, function (error, stdout, stderr){ 
+// Runs your python code
+  var appWindow = gui.Window.open('http://127.0.0.1:5000', 
+  // Starts your application
+    { width: 800,
+      height: 600,
+      position: 'center',
+      focus: false,
+    }
+);
+appWindow.on('loaded', function() { // Waits for application to be loaded
+  currentWindow.close({force: 'true'}); // Closes loading.html
+    appWindow.show();  // Shows app.html
+    appWindow.focus(); // Set the focus on app.html
+  });
+});
+</script>
+</body>
+</html>

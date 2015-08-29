@@ -1,0 +1,30 @@
+{
+  "name": "JinoHelper",
+  "version": "0.0.1",
+  "description": "Desktop nwjs/flask application for diagnosing site by Jino.ru",
+  "main": "init.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "flask",
+    "node-webkit",
+    "nwjs",
+    "jino.ru",
+    "diagnosing",
+    "network",
+    "whois",
+    "mtr",
+    "nslookup"
+  ],
+  "author": "amywoodehy@outlook.com",
+  "license": "BSD-2-Clause",
+  "window": {
+    "toolbar": true,
+    "frame": true
+  },
+  "dependencies": {
+    "xmlhttprequest": "~1.7.0",
+    "jquery": "~2.1.4"
+  }
+}
